@@ -33,6 +33,21 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# user authentication
+gem 'devise'
+# file uploader
+gem 'carrierwave'
+# fake data
+gem 'ffaker'
+# easy RWD style
+gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap4-kaminari-views'
+gem 'jquery-rails'
+gem 'bootstrap_form'
+
+#for API
+gem 'rest-client'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
