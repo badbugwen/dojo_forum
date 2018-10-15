@@ -21,7 +21,12 @@
           
           <td><%= user.name %></td>
           <td><%= user.email %></td>
-          <td></td>
+          <td>
+            <%= form_for [:admin, user] do |f| %>
+              <%= f.select :role, [["Admin", "admin"], ["Normal", "Normal"]] %>
+              <%= f.submit %>
+            <% end %>
+          </td>
         </tr>  
       <% end %>
     </tbody>

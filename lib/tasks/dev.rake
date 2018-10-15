@@ -2,7 +2,7 @@ namespace :dev do
   task fake_users: :environment do
     users = User.all
     users.each do |user|
-      if user.name != "admin" && user.name != "User"
+      if user.role != "admin" && user.name != "User"
         user.destroy
       end
     end

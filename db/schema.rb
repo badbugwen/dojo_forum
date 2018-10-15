@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181014182445) do
+ActiveRecord::Schema.define(version: 20181015100613) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(version: 20181014182445) do
     t.text "content"
     t.integer "user_id"
     t.integer "category_id"
-    t.integer "replies_count"
-    t.integer "viewed_count"
+    t.integer "replies_count", default: 0
+    t.integer "viewed_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20181014182445) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "role"
+    t.string "role", default: "Normal"
     t.text "intro"
     t.string "avatar"
     t.datetime "created_at", null: false

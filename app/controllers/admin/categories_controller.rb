@@ -1,5 +1,4 @@
 class Admin::CategoriesController < ApplicationController
-  
   before_action :authenticate_admin
   before_action :set_category, only: [:update, :destroy]
   before_action :set_categories, only: [:index, :create, :update]
@@ -10,13 +9,7 @@ class Admin::CategoriesController < ApplicationController
       set_category
     else
       @category = Category.new 
-    end  
-  end
-
-  def show
-    @categories = Category.all
-    @category = Category.find(params[:id])
-    @restaurants = @category.restaurants.page(params[:page]).per(10)
+    end
   end
 
   def create
