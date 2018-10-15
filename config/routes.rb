@@ -40,7 +40,7 @@ Rails.application.routes.draw do
 
   # admin開放CRUD for category and update user.role
   namespace :admin do
-    resources :users, only: [:update]
+    resources :users, only: [:index, :update]
     resources :categories
     root "categories#index"
   end

@@ -1,1 +1,52 @@
-<h1>Admin desk</h1>
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <%= link_to'User list', admin_users_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to'Category list', admin_root_path, class: "nav-link active" %>
+    </li>
+  </ul>
+  <!-- title and new category form -->
+  <div class="row">
+    <div class="col-10">
+      <br>
+      <%= form_for [:admin, @category] do |f| %>
+        <div class="form-group">          
+          <%= f.text_field :name, placeholder: "請輸入新分類", class: "form-control col-8" %>
+          <% if params[:id] %>
+            <input type="submit" class="btn btn-warning col-2" value="更新分類" >
+          <% else %>
+            <input type="submit" class="btn btn-primary col-2" value="新增分類" >
+          <% end %>      
+        <br> 
+          <strong><%= @category.errors.full_messages.to_sentence if @category.errors.any?%></strong>
+        </div>  
+      <% end %>
+      </div> 
+    </div>
+  <!-- categories list table -->  
+  <div class="row">
+    <div class="col-10">
+      <table class="table table-hover">        
+        <thead>              
+          <tr class="bg-primary">
+            <td class="col-6">分類名稱</td>           
+            <td class="col-2">編輯</td>
+            <td class="col-2">刪除</td>
+          </tr>          
+        </thead>
+
+        <tbody>
+          <% @categories.each do |category| %>
+            <tr>
+              <td class="col-6"><%= category.name %></td>
+              <td class="col-2"><%= link_to'Edit', admin_categories_path(id: category.id) %></td>
+              <td class="col-2"><%= link_to'Delete', admin_category_path(category), method: :delete, data:{ confirm: "確定刪除此類別?" } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>  
+</div>
