@@ -41,6 +41,7 @@ gem 'carrierwave'
 gem 'ffaker'
 # easy RWD style
 gem 'bootstrap', '~> 4.1.3'
+gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
 gem 'jquery-rails'
 gem 'bootstrap_form'

@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   resources :friendships, only: [:create, :update, :destroy]
 
   # 一般使用者僅開放Read for category
-  resources :categories, only: [:show]
+  resources :categories, only: [:index, :show]
   root "posts#index"
 
   # admin開放CRUD for category and update user.role
