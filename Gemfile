@@ -40,7 +40,7 @@ gem 'carrierwave'
 # fake data
 gem 'ffaker'
 # easy RWD style
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 4.1.3'
 gem 'bootstrap4-kaminari-views'
 gem 'jquery-rails'
 gem 'bootstrap_form'
