@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 
   def index
-    @posts = Post.order(replies_count: :desc).page(params[:page]).per(20)
+    @posts = Post.order(comments_count: :desc).page(params[:page]).per(20)
     @categories = Category.all
   end
 

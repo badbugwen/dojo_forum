@@ -8,7 +8,7 @@ class CreatePosts < ActiveRecord::Migration[5.1]
       t.text   :content
       t.integer :user_id
       t.integer :category_id
-      t.integer :replies_count
+      t.integer :comments_count
       t.integer :viewed_count
 
       t.timestamps
