@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     # 瀏覽所有users/posts/comments的最新動態
     collection do
       get :feeds
+      get :last_replied
+      get :most_viewed
     end
   
     member do
@@ -29,13 +31,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :drafts, only: [:show, :update, :destroy]
-
    # user可 建立/刪除 將其他user視為好友
   resources :friendships, only: [:create, :update, :destroy]
 
   # 一般使用者僅開放Read for category
-  resources :categories, only: [:index, :show]
+  resources :categories, only: [:show]
+    member do
+      get :last_replied
+      get :most_viewed
+    end
   root "posts#index"
 
   # admin開放CRUD for category and update user.role

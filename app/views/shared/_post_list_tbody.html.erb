@@ -1,0 +1,8 @@
+<% posts.each do |post| %>
+  <tr>
+    <th scope="row"><%= post.replies_count %></th>
+    <td><%= post.title %></td>
+    <td></td>
+    <td><%= post.viewed_count %></td>
+  </tr>
+<% end %>
