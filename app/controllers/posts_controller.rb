@@ -24,6 +24,8 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(parmas[:id])
+    @comment = Comment.new
   end
 
   private
@@ -32,5 +34,4 @@ class PostsController < ApplicationController
     @categories = Category.all
   end
 
-  
 end
