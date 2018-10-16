@@ -1,8 +1,8 @@
 <% posts.each do |post| %>
   <tr>
-    <th scope="row"><%= post.replies_count %></th>
+    <th scope="row"><%= post.comments_count %></th>
     <td><%= post.title %></td>
-    <td></td>
+    <td><%= post.comments.last.created_at.strftime("%Y-%m-%d, %H:%M:%S") %></td>
     <td><%= post.viewed_count %></td>
   </tr>
 <% end %>

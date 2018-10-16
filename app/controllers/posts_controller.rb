@@ -1,15 +1,29 @@
 class PostsController < ApplicationController
 
   def index
-    @posts = Post.page(params[:page]).per(20)
+    @posts = Post.order(replies_count: :desc).page(params[:page]).per(20)
     @categories = Category.all
   end
 
+  def last_replied
+    ids = []
+    Comment.all.order(created_at: :asc).each do |comment|
+      ids << comment.post.id
+    end
+    ids.uniq
 
-  private
-  def set_posts
-    @latest_replied_posts
-    @most_replied_posts
-    @most_viewed_post
+    @posts = Post.joins(:comments).group("created_at").order(created_at: :desc).page(params[:page]).per(20) 
+    @categories = Category.all
   end
+
+  def most_viewed
+    @posts = Post.order(viewed_count: :desc).page(params[:page]).per(20)
+    @categories = Category.all
+  end
+
+  def show
+  end
+
+
+  
 end

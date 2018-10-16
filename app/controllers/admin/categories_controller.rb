@@ -19,7 +19,7 @@ class Admin::CategoriesController < ApplicationController
     else 
       # set_categories
       render :index
-    end  
+    end
   end
 
   def update
