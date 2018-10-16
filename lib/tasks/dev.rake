@@ -18,7 +18,7 @@ namespace :dev do
         password: "123456",
         name: data["name"],
         intro: FFaker::Lorem.paragraph,
-        avatar: data["photo"]
+        remote_avatar_url: data["photo"]
       )
     end
     puts "have created fake users"
@@ -31,8 +31,8 @@ namespace :dev do
     100.times do |i|
       Post.create!(
         title: FFaker::Lorem::phrase,
-        content: %s[#1###alphacamp].to_s + FFaker::Lorem::sentence(100) ,
-        image:  "modify after carrierwave",
+        content: FFaker::Lorem::sentence(100) ,
+        remote_image_url: FFaker::Image::url,
         seem: "all",
         user_id: User.all.sample.id,
         category_id: Category.all.sample.id
