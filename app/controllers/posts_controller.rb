@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
+  before_action :set_categories
 
   def index
-    @posts = Post.order(comments_count: :desc).page(params[:page]).per(20)
-    @categories = Category.all
+    @posts = Post.order(id: :desc).page(params[:page]).per(20)
   end
 
   def last_replied
@@ -13,17 +13,24 @@ class PostsController < ApplicationController
     ids.uniq
 
     @posts = Post.joins(:comments).group("created_at").order(created_at: :desc).page(params[:page]).per(20) 
-    @categories = Category.all
   end
 
   def most_viewed
     @posts = Post.order(viewed_count: :desc).page(params[:page]).per(20)
-    @categories = Category.all
+  end
+
+  def most_replies
+    @posts = Post.order(comments_count: :desc).page(params[:page]).per(20)
   end
 
   def show
   end
 
+  private
+
+  def set_categories
+    @categories = Category.all
+  end
 
   
 end

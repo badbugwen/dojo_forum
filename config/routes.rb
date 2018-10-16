@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get :feeds
       get :last_replied
       get :most_viewed
+      get :most_replies
     end
   
     member do
@@ -39,6 +40,7 @@ Rails.application.routes.draw do
     member do
       get :last_replied
       get :most_viewed
+      get :most_replies
     end
   end
   root "posts#index"

@@ -1,7 +1,7 @@
 <div class="container">
 <%# Category link list  %>
   <nav class="nav">
-    <%= link_to 'All', root_path, class:"nav-link btn btn-outline-primary" %>
+   <%= link_to 'All', root_path, class:"nav-link btn btn-outline-primary" %>
     <% Category.all.each do |category| %>
       <%= link_to category.name, category_path(category), class:"nav-link" %>
     <% end %>
@@ -10,7 +10,7 @@
   <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col"><%= link_to 'Replies count▼', root_path %></th>
+      <th scope="col"><%= link_to 'Replies count▼', most_replies_posts_path %></th>
       <th scope="col">Title</th>
       <th scope="col"><%= link_to 'Last replied at▼', last_replied_posts_path %></th>
       <th scope="col"><%= link_to 'Viewed count▼', most_viewed_posts_path %></th>

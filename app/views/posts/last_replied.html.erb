@@ -1,7 +1,7 @@
 <div class="container">
 <%# Category link list  %>
   <nav class="nav">
-    <%= link_to 'All', root_path, class:"nav-link active" %>
+    <%= link_to 'All', root_path, class:"nav-link btn btn-outline-primary" %>
     <% Category.all.each do |category| %>
       <%= link_to category.name, category_path(category), class:"nav-link" %>
     <% end %>
