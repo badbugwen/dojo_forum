@@ -6,7 +6,6 @@
           <% if post.errors.any? %>
             <div id="error_explanation">
               <h2><%= pluralize(post.errors.count, "error") %> prohibited this user from being saved:</h2>
-
               <ul>
               <% post.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
@@ -43,7 +42,7 @@
             </div>
 
           <div class="form_group">
-            <%= form.label :status, "Status" %>
+            <%= form.label :status, "Status:" %>
             <%= post.status? ? 'Draft' : '' %> 
           </div>
 

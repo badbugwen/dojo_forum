@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_categories
+  before_action :set_post, only:[:show, :collect, :uncollect, :edit, :update, :destroy]
 
   def index
     @posts = Post.order(id: :desc).page(params[:page]).per(20)
@@ -24,18 +25,15 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
     @comments = @post.comments.order(created_at: :asc)
     @comment = Comment.new
   end
 
   def collect
-    @post = Post.find(params[:id])
     @post.collects.create!(user: current_user)
   end
 
   def uncollect
-    @post = Post.find(params[:id])
     collect = Collect.where(post: @post, user: current_user)
     collect.destroy_all
   end
@@ -47,11 +45,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = current_user
-    if params[:commit] == "Draft"
-      @post.status = true
-    else  
-      @post.status = false
-    end  
+    @post.status = (params[:commit] == "Draft") ? true : false
+     
     if @post.save
       create_relation
       redirect_to post_path(@post), notice: "Post was successfully created"
@@ -61,6 +56,7 @@ class PostsController < ApplicationController
   end
 
   def update
+    @post.status = (params[:commit] == "Draft") ? true : false
     if @post.update(post_params)
       redirect_to post_path(@post), notice: "Post was successfully updated"
     else
@@ -77,6 +73,10 @@ class PostsController < ApplicationController
 
   def set_categories
     @categories = Category.all
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 
   def post_params
