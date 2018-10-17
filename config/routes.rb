@@ -12,8 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
-  # user僅開放觀看 index & show for posts
-  resources :posts, only: [:index, :show, :update, :destroy] do
+ 
+  resources :posts do
     # 在post下可Create and Destroy comments
     resources :comments, only: [:create, :update, :destroy]
 
@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       # 加入/取消collect個別post
       post :collect
       post :uncollect
+      post :draft
     end
   end
 

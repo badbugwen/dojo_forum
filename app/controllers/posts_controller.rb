@@ -40,10 +40,49 @@ class PostsController < ApplicationController
     collect.destroy_all
   end
 
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    @post.user = current_user
+    if @post.save
+      create_relation
+      redirect_to post_path(@post), notice: "Post was successfully created"
+    else
+      render :new, alert: "Post was dailed to create"
+    end
+  end
+
+  def draft
+    if @post =
+    @post.user = current_user
+    @post.status == "true"
+    @post.save
+  end
+
   private
 
   def set_categories
     @categories = Category.all
+  end
+
+  def post_params
+    params.require(:post).permit(:title, :image, :content, :seem, :status)
+  end
+
+   def create_relation
+    unless params[:categories_posts][:category_id] == ""
+      @post.categories_posts.destroy_all
+      category_ids = params[:categories_posts][:category_id]
+      (category_ids.length - 1).times do
+       CategoriesPost.create!(
+          category_id: category_ids.pop,
+          post_id: @post.id,
+          )
+      end
+    end
   end
 
 end
