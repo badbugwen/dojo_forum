@@ -44,11 +44,11 @@
 
           <div class="form_group">
             <%= form.label :status, "Status" %>
-            <%= @post.status? ? 'Draft' : '' %> 
+            <%= post.status? ? 'Draft' : '' %> 
           </div>
 
           <div class="form-gruop pull-right">
-            <%= link_to 'Draft', draft_post_path(post), method: :post, class: "btn btn-outline-primary" %>
+            <%= form.submit "Draft", class: "btn btn-outline-primary" %>
             <%= form.submit "Publish", class: "btn btn-primary" %>
           </div>   
 

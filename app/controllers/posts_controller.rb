@@ -47,6 +47,11 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = current_user
+    if params[:commit] == "Draft"
+      @post.status = true
+    else  
+      @post.status = false
+    end  
     if @post.save
       create_relation
       redirect_to post_path(@post), notice: "Post was successfully created"
@@ -55,12 +60,18 @@ class PostsController < ApplicationController
     end
   end
 
-  def draft
-    if @post =
-    @post.user = current_user
-    @post.status == "true"
-    @post.save
-  end
+  def update
+    if @post.update(post_params)
+      redirect_to post_path(@post), notice: "Post was successfully updated"
+    else
+      render :edit, alert: "Post was failed to update"
+    end
+  end 
+
+  def destroy
+    @post.destroy
+    redirect_back(fallback_location: root_path)
+  end 
 
   private
 

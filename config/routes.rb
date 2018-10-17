@@ -29,7 +29,6 @@ Rails.application.routes.draw do
       # 加入/取消collect個別post
       post :collect
       post :uncollect
-      post :draft
     end
   end
 
