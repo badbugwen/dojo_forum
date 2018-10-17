@@ -4,20 +4,22 @@
   <nav class="navbar navbar-light bg-light">
     <div class="navbar-brand"><%= @post.title %></div>
     <form class="form-inline">
-      <button class="btn btn-sm btn-outline-secondary" type="button">Collect</button>
-      <button class="btn btn-sm btn-outline-secondary" type="button">Comment</button>
+      <button class="btn btn-sm btn-outline-secondary" type="button">Collect</button> &nbsp;
+      <%= link_to 'Comment', post_path(@post, anchor:"comment"),class:"btn btn-sm btn-outline-secondary" %>
     </form>
   </nav>
   <br>
 <%# Post details  %>
 <div class="row">
   <div class="col-md-2 col-sm-4 col-xs-12">
-    <% if @post.user.avatar? %>
-      <%= image_tag @post.user.avatar, width: '100px', alt: @post.user.name,  class: "rounded ml-3 mt-1"  %>
-    <% else %>
-        <img src="https://placeholdit.imgix.net/~text?txtsize=21&txt=No%20User%20Image&w=100&h=100" class="rounded ml-3 mt-1">
-    <% end %>
-    <h5 class="ml-4"><%= link_to @post.user.name, user_path(@post.user) %></h5>
+    <div class="text-center">
+      <% if @post.user.avatar? %>
+        <%= image_tag @post.user.avatar, width: '100px', alt: @post.user.name,  class: "rounded mt-1"  %>
+      <% else %>
+          <img src="https://placeholdit.imgix.net/~text?txtsize=21&txt=No%20User%20Image&w=100&h=100" class="rounded mt-1">
+      <% end %>
+      <h5><%= link_to @post.user.name, user_path(@post.user) %></h5>
+    </div>  
   </div>
   <div class="col-md-10 col-sm-8 col-xs-12">
     <%= image_tag @post.image if @post.image? %>
@@ -32,10 +34,10 @@
     <hr>
     <%= render partial: "shared/comment", locals: {comment: comment} %>  
   <% end %>
- </div> 
+ </div><br> 
  <%# Comment Replies form %>
   <%= form_for [@post, @comment] do |f| %>
-    <div class="form_group">
+    <div class="form_group" id= "comment">
       <%= f.text_area :content, placeholder: "Comment this post", class: "form-control", rows: "5", maxlength:"300" %>
     </div>
     <div class="form-group text-right">

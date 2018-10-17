@@ -1,11 +1,13 @@
 <div class="row">
   <div class="col-md-2 col-sm-4 col-xs-12">
-   <% if comment.user.avatar? %>
-    <%= image_tag comment.user.avatar, width: '100px', alt: comment.user.name,  class: "rounded ml-3 mt-1"  %>
-  <% else %>
-    <img src="https://placeholdit.imgix.net/~text?txtsize=21&txt=No%20User%20Image&w=100&h=100" class="rounded ml-3 mt-1">
-  <% end %>
-  <h5 class="ml-5"><%= link_to comment.user.name, user_path(comment.user) %></h5>
+    <div class="text-center">
+      <% if comment.user.avatar? %>
+        <%= image_tag comment.user.avatar, width: '100px', alt: comment.user.name,  class: "rounded mt-1"  %>
+      <% else %>
+        <img src="https://placeholdit.imgix.net/~text?txtsize=21&txt=No%20User%20Image&w=100&h=100" class="rounded mt-1">
+      <% end %>
+      <h5><%= link_to comment.user.name, user_path(comment.user) %></h5>
+    </div>  
   </div>
   <div class="col-md-10 col-sm-8 col-xs-12">
     <%= comment.content %>
