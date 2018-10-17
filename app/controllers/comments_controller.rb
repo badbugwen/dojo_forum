@@ -21,8 +21,8 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:content)
   end
 
-  def set_restaurant
-    @post = post.find(params[:post_id])
+  def set_post
+    @post = Post.find(params[:post_id])
   end
 
 end
