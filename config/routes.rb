@@ -26,9 +26,9 @@ Rails.application.routes.draw do
     end
   
     member do
-      # 加入最愛/取消最愛個別post
+      # 加入/取消collect個別post
       post :collect
-      post :uncollecte
+      post :uncollect
     end
   end
 

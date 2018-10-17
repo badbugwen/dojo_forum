@@ -1,0 +1,7 @@
+var el = document.getElementById("<%= "post-" + @post.id.to_s %>");
+el.querySelector('button').innerHTML = "Collect";
+el.querySelector('button').classList.remove("btn-sm btn-outline-primary");
+el.querySelector('button').classList.add("btn-sm btn-outline-secondary");
+el.href = "<%= collect_post_path(@post) %>"
+el.querySelector('button').blur()
+

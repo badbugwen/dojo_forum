@@ -1,0 +1,17 @@
+<% link_attr = post.is_collected?(current_user) ?
+              {
+                path: uncollect_post_path(post),
+                button_class: "btn-sm btn-outline-secondary",
+                desc: "Remove"
+              } :
+              {
+                path: collect_post_path(post),
+                button_class: "btn-sm btn-outline-primary",
+                desc: "Collect"
+              } %>
+
+<%= link_to link_attr[:path], remote: current_user != nil, method: :post, id: "post-" + post.id.to_s do %>
+  <button type="button" class="btn <%= link_attr[:button_class] %> ">
+    <%= link_attr[:desc] %>
+  </button>
+<% end %>

@@ -4,7 +4,8 @@
   <nav class="navbar navbar-light bg-light">
     <div class="navbar-brand"><%= @post.title %></div>
     <form class="form-inline">
-      <button class="btn btn-sm btn-outline-secondary" type="button">Collect</button> &nbsp;
+      <%= render partial: "shared/collect", locals: {post: @post} %> 
+      &nbsp;
       <%= link_to 'Comment', post_path(@post, anchor:"comment"),class:"btn btn-sm btn-outline-secondary" %>
     </form>
   </nav>

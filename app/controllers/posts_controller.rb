@@ -29,6 +29,17 @@ class PostsController < ApplicationController
     @comment = Comment.new
   end
 
+  def collect
+    @post = Post.find(params[:id])
+    @post.collects.create!(user: current_user)
+  end
+
+  def uncollect
+    @post = Post.find(params[:id])
+    collect = Collect.where(post: @post, user: current_user)
+    collect.destroy_all
+  end
+
   private
 
   def set_categories
