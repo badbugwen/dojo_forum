@@ -21,10 +21,10 @@
   <%# user's nav  %>
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <%= link_to'My Post', user_path(@user), class: "nav-link active" %>
+      <%= link_to'My Post', user_path(@user), class: "nav-link" %>
     </li>
     <li class="nav-item">
-      <%= link_to'My Comment',comment_user_path(@user), class: "nav-link" %>
+      <%= link_to'My Comment',comment_user_path(@user), class: "nav-link active" %>
     </li>
     <li class="nav-item">
       <%= link_to'My Collect',collection_user_path(@user), class: "nav-link" %>
@@ -39,17 +39,26 @@
   <%#post list  %>
   <table class="table table-sm">
   <tbody>
-    <% @posts.each do |post| %>
+    <% @comments.each do |comment| %>
       <tr class='row'>
-        <td class="col-6"><%= link_to post.title, post_path(post), class: "ml-4" %></td>
-        <td class="col-1"><%= post.status == true ? 'Draft' : 'Publish' %></td>
-        <td class="col-2"><%= post.created_at.strftime("%Y-%m-%d") %></td>
-        <% if current_user == @user %>
-          <td class="col-2">
-            <%= link_to 'edit', edit_post_path(post) %>
-            <%= link_to 'delete', post_path(post), method: :delete, data:{ confirm: "Are you sure?" }%>    
+         <%= form_for [comment.post, comment] do |f| %>
+          <td class="col-8">
+            <%= link_to comment.post.title, post_path(comment.post), class: "ml-4" %>
+            <div class="form_inline" id= "comment">
+              <%= f.text_area :content, class: "form-control", rows: "3" %>
+            </div>
+              <% if current_user == @user %>
+                <div class="form-inline text-right">
+                  <%= f.button "Edit",type: :submit, class: "btn btn-primary mt-1" %>
+                </div>
+              <% end %>
           </td>
-        <% end %>  
+          <% if current_user == @user %>
+            <td class="col-2">
+              <%= link_to 'delete', post_comment_path(comment), method: :delete, data:{ confirm: "Are you sure?" }%>    
+            </td>
+          <% end %>  
+        <% end %>
       </tr>
     <% end %>  
   </tbody>

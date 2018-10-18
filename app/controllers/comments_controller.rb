@@ -1,11 +1,17 @@
 class CommentsController < ApplicationController
-  before_action :set_post
+  before_action :set_post, except: [:udate]
 
   def create
     @comment = @post.comments.build(comment_params)
     @comment.user = current_user
     @comment.save!
     redirect_to post_path(@post)
+  end
+
+  def update
+    @comment = Comment.find(params[:id])
+    @comment.update(comment_params)
+    redirect_to comment_user_path(current_user)
   end
 
   def destroy

@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :restrict_with_error
   has_many :collects, dependent: :destroy
   has_many :collected_posts, through: :collects, source: :post
+  has_many :commented_posts, through: :comments, source: :post
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"

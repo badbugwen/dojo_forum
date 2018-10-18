@@ -21,13 +21,13 @@
   <%# user's nav  %>
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <%= link_to'My Post', user_path(@user), class: "nav-link active" %>
+      <%= link_to'My Post', user_path(@user), class: "nav-link" %>
     </li>
     <li class="nav-item">
       <%= link_to'My Comment',comment_user_path(@user), class: "nav-link" %>
     </li>
     <li class="nav-item">
-      <%= link_to'My Collect',collection_user_path(@user), class: "nav-link" %>
+      <%= link_to'My Collect',collection_user_path(@user), class: "nav-link active" %>
     </li>
     <li class="nav-item">
       <%= link_to'My Draft', draft_user_path(@user), class: "nav-link" %>
@@ -46,8 +46,7 @@
         <td class="col-2"><%= post.created_at.strftime("%Y-%m-%d") %></td>
         <% if current_user == @user %>
           <td class="col-2">
-            <%= link_to 'edit', edit_post_path(post) %>
-            <%= link_to 'delete', post_path(post), method: :delete, data:{ confirm: "Are you sure?" }%>    
+            <%= render partial: "shared/collect", locals: {post: post} %> 
           </td>
         <% end %>  
       </tr>
