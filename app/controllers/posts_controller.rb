@@ -77,6 +77,8 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+    @categories_posts = @post.categories_posts.all.order(category_id: :asc)
+    @post_categories = @categories_posts.pluck(:category_id)
   end
 
   def post_params

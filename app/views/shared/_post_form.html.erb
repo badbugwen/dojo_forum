@@ -38,7 +38,7 @@
 
           <div class="form-group">
             <%= form.label "Category" %> <br>
-              <%= collection_check_boxes(:categories_posts, :category_id, Category.all, :id, :name)   %>
+              <%= collection_check_boxes(:categories_posts, :category_id, Category.all, :id, :name, {checked: @post_categories})    %>
             </div>
 
           <div class="form_group">
