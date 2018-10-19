@@ -70,15 +70,12 @@ namespace :dev do
 
   task fake_comments: :environment do
     Comment.destroy_all
-    posts = Post.all 
-    posts.each do |post|
-      3.times do |i|
-        Comment.create!(
-          content: FFaker::Lorem.sentence,
-          post_id: post.id,
-          user_id: User.all.sample.id
-          )
-      end
+    200.times do |i|
+      Comment.create!(
+        content: FFaker::Lorem.sentence,
+        post_id: Post.all.sample.id,
+        user_id: User.all.sample.id
+        )
     end
     puts "have created fake comments"
     puts "now you have #{Comment.count} comments data"  

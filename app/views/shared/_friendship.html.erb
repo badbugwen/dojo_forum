@@ -1,0 +1,5 @@
+<% if user != current_user %>  
+  <% unless current_user.friend?(user) %>
+    <%= link_to 'Add Friend', friendships_path(friend_id: user), method: :post, class: "btn btn-info active" %>
+  <% end %>
+<% end %>  

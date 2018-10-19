@@ -31,9 +31,19 @@ class UsersController < ApplicationController
   end
 
   def friend
-    @asking_friends
-    @requiring_friends
-    @friends
+    asking_ids = []
+    Friendship.where(user_id: @user.id, status: false ).find_each do |friendship|
+      asking_ids << friendship.friend_id
+    end
+    @asking_friends = User.where(id: asking_ids).all
+
+    requiring_ids = []
+    Friendship.where(friend_id: @user.id, status: false).find_each do |friendship|
+      requiring_ids << friendship.user_id
+    end
+    @requiring_friends = User.where(id: requiring_ids)
+
+    @my_friends = @user.all_friends
   end
 
   private

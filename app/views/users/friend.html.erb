@@ -1,0 +1,42 @@
+<div class="container">
+  <%= render partial: "shared/profile", locals:{user: @user} %>
+  <%# user's nav  %>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <%= link_to'My Post', user_path(@user), class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to'My Comment',comment_user_path(@user), class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to'My Collect',collection_user_path(@user), class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to'My Draft', draft_user_path(@user), class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to'My Friend', friend_user_path(@user), class: "nav-link active" %>
+    </li>
+  </ul>
+  <%#friend list  %>
+  <br>
+  <h2 class="text-center">Waiting for their response</h2>
+  <div class="card-deck">
+    <% @asking_friends.each do |user| %>
+      <%= render partial: "shared/user_card", locals:{user: user} %>
+    <% end %>
+  </div>
+  <hr>
+  <h2 class="text-center">Whom want to be <%= @user == current_user ? 'my' : @user.name+"'s" %> Friend</h2>
+  <div class="card-deck">
+    <% @requiring_friends.each do |user| %>
+      <%= render partial: "shared/user_card", locals:{user: user} %>
+    <% end %>
+  </div>
+  <hr>
+  <h2 class="text-center"><%= @user == current_user ? 'My' : @user.name+"'s" %> friends</h2>
+  <div class="card-deck">
+    <% @my_friends.each do |user| %>
+      <%= render partial: "shared/user_card", locals:{user: user} %>
+    <% end %>
+  </div>
