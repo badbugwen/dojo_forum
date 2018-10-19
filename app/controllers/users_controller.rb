@@ -4,6 +4,13 @@ class UsersController < ApplicationController
     @posts = Post.where(user_id: @user.id, status: false).all.order(created_at: :asc)
   end
 
+  def edit
+    unless @user == current_user
+      flash[:alert] = "Profile editing in person only!"
+      redirect_to user_path(@user)
+    end
+  end
+
   def update
     if @user == current_user
       # only userself can update profile in right format
@@ -13,7 +20,7 @@ class UsersController < ApplicationController
         render :edit
       end
     else
-        redirect_to user_path(params[:id]), alert: "You can not edit other user's profile!"
+        redirect_to user_path(params[:id]), alert: "Profile editing in person only!"
     end
   end
 

@@ -6,11 +6,11 @@
   <% end %>
   <div class="card-body">
     <h5 class="card-title"><%= link_to user.name, user_path(user, status: true) %></h5>
-  <% if Friendship.where(user_id: user.id, friend_id: @user.id, status: false).present? && current_user == @user  %>
-    <div class="card-footer bg-transparent border-light text-center">
-      <%= link_to 'Accept', friendship_path(user), method: :patch, class: "btn btn-sm btn-outline-info mb-1" %>
-      <%= link_to 'Reject', friendship_path(user), method: :delete, data:{ confirm: "Are you sure?" } , class: "btn btn-sm btn-outline-info" %>
-    </div>
-  <% end %>
+    <% if Friendship.where(user_id: user.id, friend_id: @user.id, status: false).present? && current_user == @user  %>
+      <div class="card-footer bg-transparent border-light">
+        <%= link_to 'Accept', friendship_path(user), method: :patch, class: "btn btn-sm btn-outline-info mb-1" %>
+        <%= link_to 'Reject', friendship_path(user), method: :delete, data:{ confirm: "Are you sure?" } , class: "btn btn-sm btn-outline-info" %>
+      </div>
+    <% end %>
   </div>
 </div>
