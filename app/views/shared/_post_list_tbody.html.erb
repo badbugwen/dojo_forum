@@ -1,8 +1,31 @@
 <% posts.each do |post| %>
-  <tr>
-    <th scope="row"><%= post.comments_count %></th>
-    <td><%= link_to post.title, post_path(post) %></td>
-    <td><%= post.comments.any? ? post.comments.last.created_at.strftime("%Y-%m-%d, %H:%M:%S") : post.created_at.strftime("%Y-%m-%d, %H:%M:%S") %></td>
-    <td><%= post.viewed_count %></td>
-  </tr>
+  <% if post.seem == "All" %>
+    <tr>
+      <th scope="row"><%= post.comments_count %></th>
+      <td><%= link_to post.title, post_path(post) %></td>
+      <td><%= post.comments.any? ? post.comments.last.created_at.strftime("%Y-%m-%d, %H:%M:%S") : post.created_at.strftime("%Y-%m-%d, %H:%M:%S") %></td>
+      <td><%= post.viewed_count %></td>
+    </tr>
+  <% end %>
+  <% if current_user %>
+    <% if post.seem == "Friends" %>
+      <% if post.user.friend?(current_user) || post.user == current_user %>
+        <tr>
+          <th scope="row"><%= post.comments_count %></th>
+          <td><%= link_to post.title, post_path(post) %></td>
+          <td><%= post.comments.any? ? post.comments.last.created_at.strftime("%Y-%m-%d, %H:%M:%S") : post.created_at.strftime("%Y-%m-%d, %H:%M:%S") %></td>
+          <td><%= post.viewed_count %></td>
+        </tr>
+      <% end %>
+    <% end %>
+
+    <% if post.seem == "Myself" && post.user == current_user %>
+      <tr>
+        <th scope="row"><%= post.comments_count %></th>
+        <td><%= link_to post.title, post_path(post) %></td>
+        <td><%= post.comments.any? ? post.comments.last.created_at.strftime("%Y-%m-%d, %H:%M:%S") : post.created_at.strftime("%Y-%m-%d, %H:%M:%S") %></td>
+        <td><%= post.viewed_count %></td>
+      </tr>
+    <% end %>  
+  <% end %>
 <% end %>

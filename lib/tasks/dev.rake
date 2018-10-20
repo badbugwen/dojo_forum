@@ -33,7 +33,7 @@ namespace :dev do
         title: FFaker::Lorem::phrase,
         content: FFaker::Lorem::sentence(100) ,
         remote_image_url: FFaker::Image::url,
-        seem: "all",
+        seem: "All",
         user_id: User.all.sample.id,
         category_id: Category.all.sample.id
       )
