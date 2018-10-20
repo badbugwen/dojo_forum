@@ -1,0 +1,54 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col">
+        <h1>User</h1>
+        <button class="btn btn-lg btn-outline-dark" disabled>
+          <%= User.all.count %>
+        </button>  
+      </div>
+      <div class="col">
+        <h1>Post</h1>
+        <button class="btn btn-lg btn-outline-dark" disabled>
+          <%= Post.all.count %>
+        </button> 
+      </div>  
+      <div class="col">
+        <h1>Comment</h1>
+        <button class="btn btn-lg btn-outline-dark" disabled>
+          <%= Comment.all.count %>
+        </button> 
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-10 col-sm-3">
+      <h2 class="text-center">ChetterBox</h2>
+      <hr>
+      <ol>
+        <% @louded_users.each do |user| %>
+          <li>
+            <%= link_to user.name, user_path(user) %>
+            <span class="float-right"><%= user.comments_count %></span>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+    <div class="col-xs-10 col-sm-8">
+      <h2 class="text-center">Most Popular Post</h2>
+      <hr>
+      <ol>
+        <% @popular_posts.each do |post| %>
+          <li>
+            <%= link_to post.title, post_path(post) %>
+            <span class="float-right"><%= post.comments_count %></span>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+</div>

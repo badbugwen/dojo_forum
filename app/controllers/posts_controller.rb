@@ -60,7 +60,8 @@ class PostsController < ApplicationController
   end
 
   def feeds
-    
+    @louded_users = User.order(comments_count: :desc).limit(10)
+    @popular_posts = Post.order(comments_count: :desc).limit(10)
   end
  
   def collect

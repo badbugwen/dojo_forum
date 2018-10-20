@@ -2,7 +2,7 @@
   <tr>
     <th scope="row"><%= post.comments_count %></th>
     <td><%= link_to post.title, post_path(post) %></td>
-    <td><%= post.comments.last.created_at.strftime("%Y-%m-%d, %H:%M:%S") %></td>
+    <td><%= post.comments.any? ? post.comments.last.created_at.strftime("%Y-%m-%d, %H:%M:%S") : post.created_at.strftime("%Y-%m-%d, %H:%M:%S") %></td>
     <td><%= post.viewed_count %></td>
   </tr>
 <% end %>
