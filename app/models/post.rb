@@ -11,4 +11,9 @@ class Post < ApplicationRecord
   def is_collected?(user)
     self.collectors.include?(user)
   end
+
+  def increase_view
+    self.viewed_count+=1
+    self.save!
+  end
 end

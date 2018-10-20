@@ -13,6 +13,7 @@ class PostsController < ApplicationController
   def show
     @comments = @post.comments.order(created_at: :asc)
     @comment = Comment.new
+    @post.increase_view
   end
 
   def create
