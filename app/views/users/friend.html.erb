@@ -23,22 +23,22 @@
   <br>
   <h2 class="text-center">Waiting for their response</h2>
   <div class="card-group">
-      <% @asking_friends.each do |user| %>
-        <%= render partial: "shared/user_card", locals:{user: user} %>
-      <% end %>
+    <% @asking_friends.each do |user| %>
+      <%= render partial: "shared/user_card", locals:{user: user} %>
+    <% end %>
   </div>
   <hr>
   <h2 class="text-center">Whom want to be <%= @user == current_user ? 'my' : @user.name+"'s" %> Friend</h2>
   <div class="card-group">
-      <% @requiring_friends.each do |user| %>
-        <%= render partial: "shared/user_card", locals:{user: user} %>
-      <% end %>
+    <% @requiring_friends.each do |user| %>
+      <%= render partial: "shared/user_card", locals:{user: user} %>
+    <% end %>
   </div>
   <hr>
   <h2 class="text-center"><%= @user == current_user ? 'My' : @user.name+"'s" %> friends</h2>
   <div class="card-group">
-      <% @my_friends.each do |user| %>
-        <%= render partial: "shared/user_card", locals:{user: user} %>
-      <% end %>
+    <% @my_friends.each do |user| %>
+      <%= render partial: "shared/user_card", locals:{user: user} %>
+    <% end %>
   </div>
 </div>   

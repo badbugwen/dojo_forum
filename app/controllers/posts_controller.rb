@@ -6,22 +6,8 @@ class PostsController < ApplicationController
     @posts = Post.order(id: :desc).page(params[:page]).per(20)
   end
 
-  def last_replied
-    ids = []
-    Comment.all.order(created_at: :asc).each do |comment|
-      ids << comment.post.id
-    end
-    ids.uniq
-
-    @posts = Post.joins(:comments).group("created_at").order(created_at: :desc).page(params[:page]).per(20) 
-  end
-
-  def most_viewed
-    @posts = Post.order(viewed_count: :desc).page(params[:page]).per(20)
-  end
-
-  def most_replies
-    @posts = Post.order(comments_count: :desc).page(params[:page]).per(20)
+  def new
+    @post = Post.new
   end
 
   def show
@@ -29,24 +15,10 @@ class PostsController < ApplicationController
     @comment = Comment.new
   end
 
-  def collect
-    @post.collects.create!(user: current_user)
-  end
-
-  def uncollect
-    collect = Collect.where(post: @post, user: current_user)
-    collect.destroy_all
-  end
-
-  def new
-    @post = Post.new
-  end
-
   def create
     @post = Post.new(post_params)
     @post.user = current_user
     @post.status = (params[:commit] == "Draft") ? true : false
-     
     if @post.save
       create_relation
       redirect_to post_path(@post), notice: "Post was successfully created"
@@ -68,6 +40,37 @@ class PostsController < ApplicationController
     @post.destroy
     redirect_back(fallback_location: root_path)
   end 
+
+  def last_replied
+    ids = []
+    Comment.all.order(created_at: :asc).each do |comment|
+      ids << comment.post.id
+    end
+    ids.uniq
+
+    @posts = Post.joins(:comments).group("created_at").order(created_at: :desc).page(params[:page]).per(20) 
+  end
+
+  def most_viewed
+    @posts = Post.order(viewed_count: :desc).page(params[:page]).per(20)
+  end
+
+  def most_replies
+    @posts = Post.order(comments_count: :desc).page(params[:page]).per(20)
+  end
+
+  def feeds
+    
+  end
+ 
+  def collect
+    @post.collects.create!(user: current_user)
+  end
+
+  def uncollect
+    collect = Collect.where(post: @post, user: current_user)
+    collect.destroy_all
+  end
 
   private
 
