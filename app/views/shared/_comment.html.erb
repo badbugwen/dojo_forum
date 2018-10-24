@@ -7,6 +7,7 @@
         <img src="https://placeholdit.imgix.net/~text?txtsize=21&txt=No%20User%20Image&w=100&h=100" class="rounded mt-1">
       <% end %>
       <h5><%= link_to comment.user.name, user_path(comment.user) %></h5>
+      <%= render partial: "shared/friendship", locals:{user: comment.user} %>
     </div>  
   </div>
   <div class="col-md-10 col-sm-8 col-xs-12">

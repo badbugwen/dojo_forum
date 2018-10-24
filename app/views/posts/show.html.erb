@@ -28,6 +28,7 @@
           <img src="https://placeholdit.imgix.net/~text?txtsize=21&txt=No%20User%20Image&w=100&h=100" class="rounded mt-1">
       <% end %>
       <h5><%= link_to @post.user.name, user_path(@post.user) %></h5>
+      <%= render partial: "shared/friendship", locals:{user: @post.user} %>
     </div>  
   </div>
   <div class="col-md-10 col-sm-8 col-xs-12">

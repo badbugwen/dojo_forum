@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user
   def show
-    @posts = Post.where(user_id: @user.id, status: false).all.order(created_at: :asc)
+    @posts = Post.where(user_id: @user.id).all.order(created_at: :asc)
   end
 
   def edit
