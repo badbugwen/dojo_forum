@@ -46,6 +46,8 @@ gem 'bootstrap4-kaminari-views'
 gem 'jquery-rails'
 gem 'bootstrap_form'
 
+gem 'mini_racer'
+
 #for API
 gem 'rest-client'
 

@@ -1,6 +1,5 @@
 `ssh-add`
-# config valid for current version and patch releases of Capistrano
-lock "~> 3.11.0"
+# config valid for current version and patch releases of Capistrano lock "~> 3.11.0"
 
 set :application, "dojo-forum"
 set :repo_url, "git@github.com:badbugwen/dojo_forum.git"
