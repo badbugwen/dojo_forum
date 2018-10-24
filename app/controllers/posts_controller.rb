@@ -31,6 +31,7 @@ class PostsController < ApplicationController
   def update
     @post.status = (params[:commit] == "Draft") ? true : false
     if @post.update(post_params)
+      create_relation
       redirect_to post_path(@post), notice: "Post was successfully updated"
     else
       render :edit, alert: "Post was failed to update"
