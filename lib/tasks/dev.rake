@@ -2,23 +2,17 @@ namespace :dev do
   task fake_users: :environment do
     users = User.all
     users.each do |user|
-      if user.role != "admin" && user.name != "User"
+      unless user.role = "admin" || user.name = "User"
         user.destroy
       end
     end
-
-    url = "https://uinames.com/api/?ext&region=england"
-
+    
     20.times do
-      response = RestClient.get(url)
-      data = JSON.parse(response.body)
-
       user= User.create!(
-        email: data["email"],
+        email: FFaker::Internet.email,
         password: "123456",
-        name: data["name"],
+        name: FFaker::Name.last_name,
         intro: FFaker::Lorem.paragraph,
-        remote_avatar_url: data["photo"]
       )
     end
     puts "have created fake users"
