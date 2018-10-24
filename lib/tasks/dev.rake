@@ -27,6 +27,7 @@ namespace :dev do
 
   task fake_posts: :environment do
     Post.destroy_all
+    CategoriesPost.destroy_all
 
     100.times do |i|
       Post.create!(
@@ -35,13 +36,16 @@ namespace :dev do
         remote_image_url: FFaker::Image::url,
         seem: "All",
         user_id: User.all.sample.id,
-        category_id: Category.all.sample.id
+      )
+      CategoriesPost.create!(
+        category_id: Category.all.sample.id,
+        post_id: Post.last.id
       )
     end
     puts "have created fake posts"
     puts "now you have #{Post.count} posts data"
-  end  
-    
+  end
+
   task fake_friendships: :environment do
     Friendship.destroy_all
     puts "creating fake friendship..." 
