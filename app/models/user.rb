@@ -14,6 +14,11 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
   has_many :inviters, through: :inverse_friendships, source: :user
+  before_create :generate_authentication_token
+
+  def generate_authentication_token
+    self.authentication_token = Devise.friendly_token
+  end
 
   def admin?
     self.role == "admin"
@@ -36,4 +41,6 @@ class User < ApplicationRecord
     friends_all = User.where(id: friend_ids).all
     return friends_all
   end
+
+  
 end
