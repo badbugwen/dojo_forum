@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_post, except: [:udate]
+  before_action :set_post, except: [:udate, :destroy]
 
   def create
     @comment = @post.comments.build(comment_params)
@@ -16,9 +16,11 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
-    if current_user.admin?
+    params[:session] = @comment.post.id
+    @post = Post.find_by(id:  params[:session])
+    if current_user.admin? ||current_user == @comment.user
       @comment.destroy
-      redirect_to post_path(@post)
+      redirect_back(fallback_location: comment_user_path(current_user))
     end
   end
 

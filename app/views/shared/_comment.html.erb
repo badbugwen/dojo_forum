@@ -11,5 +11,8 @@
   </div>
   <div class="col-md-10 col-sm-8 col-xs-12">
     <%= comment.content %>
+     <% if current_user == comment.user  %>
+        <%= link_to'Delete', post_comment_path(comment.post, comment), method: :delete, data:{ confirm: "Are you sure to delete this comment?" }, class: "btn btn-sm btn-outline-danger" %>
+      <% end %>
   </div>
 </div>
