@@ -32,8 +32,11 @@ class Admin::CategoriesController < ApplicationController
   end
 
   def destroy
-    @category.destroy
-    redirect_to admin_categories_path, alert: "分類已刪除"
+    if @category.destroy
+      redirect_to admin_categories_path, alert: "分類已刪除"
+    else
+      redirect_to admin_categories_path, alert: @category.errors.full_messages
+    end  
   end 
 
   private
