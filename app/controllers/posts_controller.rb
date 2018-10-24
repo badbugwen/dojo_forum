@@ -38,9 +38,11 @@ class PostsController < ApplicationController
   end 
 
   def destroy
+    if current_user == @post.user || current_user.admin?
     @post.destroy
-    redirect_back(fallback_location: root_path)
-  end 
+    redirect_to root_path
+    end
+  end
 
   def last_replied
     ids = []
