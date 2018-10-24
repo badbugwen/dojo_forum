@@ -39,19 +39,13 @@ class PostsController < ApplicationController
 
   def destroy
     if current_user == @post.user || current_user.admin?
-    @post.destroy
-    redirect_to root_path
+      @post.destroy
+      redirect_to root_path
     end
-  end
+  end 
 
   def last_replied
-    ids = []
-    Comment.all.order(created_at: :asc).each do |comment|
-      ids << comment.post.id
-    end
-    ids.uniq
-
-    @posts = Post.joins(:comments).group("created_at").order(created_at: :desc).page(params[:page]).per(20) 
+    @posts = Post.includes(:comments).order("comments.created_at desc").page(params[:page]).per(20)
   end
 
   def most_viewed
