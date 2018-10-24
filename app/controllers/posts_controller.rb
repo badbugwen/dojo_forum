@@ -87,7 +87,7 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :image, :content, :seem, :status)
   end
 
-   def create_relation
+  def create_relation
     unless params[:categories_posts][:category_id] == ""
       @post.categories_posts.destroy_all
       category_ids = params[:categories_posts][:category_id]

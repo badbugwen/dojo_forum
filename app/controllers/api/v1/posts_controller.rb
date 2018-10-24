@@ -24,11 +24,11 @@ class Api::V1::PostsController < ApiController
     @post.user = current_user
     @post.status = (params[:commit] == "Draft") ? true : false
     if @post.save
-      create_relation
       render json: {
         message: "Post was successfully created",
         result: @post
       }
+      create_relation
     else
       render json:{
         message: @post.errors
@@ -39,11 +39,11 @@ class Api::V1::PostsController < ApiController
   def update
     @post.status = (params[:commit] == "Draft") ? true : false
     if @post.update(post_params)
-      create_relation
       render json:{
         message: "Post was successfully updated",
         result: @post
       }
+       create_relation
       return
     else
       render jason:{
@@ -68,5 +68,18 @@ class Api::V1::PostsController < ApiController
 
   def set_post
     @post = Post.find_by(id: params[:id])
+  end
+
+  def create_relation
+    unless params[:categories_posts][:category_id] == ""
+      @post.categories_posts.destroy_all
+      category_ids = params[:categories_posts][:category_id]
+      (category_ids.length - 1).times do
+       CategoriesPost.create!(
+          category_id: category_ids.pop,
+          post_id: @post.id,
+          )
+      end
+    end
   end
 end
