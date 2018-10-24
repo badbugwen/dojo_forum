@@ -8,6 +8,10 @@
       &nbsp;
       <%= link_to 'Comment', post_path(@post, anchor:"comment"),class:"btn btn-sm btn-outline-secondary" %>
       &nbsp;
+      <% if current_user == @post.user %>
+         <%= link_to 'Edit', edit_post_path(@post),class:"btn btn-sm btn-outline-info" %>
+        &nbsp;
+      <% end %>
       <% if current_user == @post.user || current_user.admin? %>
         <%= link_to'Delete', post_path(@post), method: :delete, data:{ confirm: "Are you sure to delete this post?" }, class: "btn btn-sm btn-outline-danger" %>
       <% end %>
