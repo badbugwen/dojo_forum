@@ -12,7 +12,7 @@
       <%= link_to'My Collect',collection_user_path(@user), class: "nav-link" %>
     </li>
     <li class="nav-item">
-      <%= link_to'My Draft', draft_user_path(@user), class: "nav-link" %>
+      <%= link_to'My Draft', draft_user_path(@user), class: "nav-link" if current_user == @user %>
     </li>
     <li class="nav-item">
       <%= link_to'My Friend', friend_user_path(@user), class: "nav-link" %>
@@ -22,20 +22,53 @@
   <table class="table table-sm">
   <tbody>
     <% @posts.each do |post| %>
-      <% if !post.status%> 
-        <tr class='row'>
-          <td class="col-6"><%= link_to post.title, post_path(post), class: "ml-4" %></td>
-          <td class="col-1"><%= post.status == true ? 'Draft' : 'Publish' %></td>
-          <td class="col-2"><%= post.created_at.strftime("%Y-%m-%d") %></td>
-          <% if current_user == @user %>
-            <td class="col-2">
-              <%= link_to 'edit', edit_post_path(post) %>
-              <%= link_to 'delete', post_path(post), method: :delete, data:{ confirm: "Are you sure?" }%>    
-            </td>
+      <% if !post.status == true %>
+        <% if post.seem == "All" %>
+          <tr class='row'>
+            <td class="col-6"><%= link_to post.title, post_path(post), class: "ml-4" %></td>
+            <td class="col-1"><%= post.status == true ? 'Draft' : 'Publish' %></td>
+            <td class="col-2"><%= post.created_at.strftime("%Y-%m-%d") %></td>
+            <% if current_user == @user %>
+              <td class="col-2">
+                <%= link_to 'edit', edit_post_path(post) %>
+                <%= link_to 'delete', post_path(post), method: :delete, data:{ confirm: "Are you sure?" }%>    
+              </td>
+            <% end %>  
+          </tr>
+        <% end %>
+        <% if current_user %>
+          <% if post.seem == "Friends" %>
+            <% if post.user.friend?(current_user) || post.user == current_user %>
+              <tr class='row'>
+                <td class="col-6"><%= link_to post.title, post_path(post), class: "ml-4" %></td>
+                <td class="col-1"><%= post.status == true ? 'Draft' : 'Publish' %></td>
+                <td class="col-2"><%= post.created_at.strftime("%Y-%m-%d") %></td>
+                <% if current_user == @user %>
+                  <td class="col-2">
+                    <%= link_to 'edit', edit_post_path(post) %>
+                    <%= link_to 'delete', post_path(post), method: :delete, data:{ confirm: "Are you sure?" }%>    
+                  </td>
+                <% end %>  
+              </tr>
+            <% end %>
+          <% end %>
+
+          <% if post.seem == "Myself" && post.user == current_user %>
+            <tr class='row'>
+              <td class="col-6"><%= link_to post.title, post_path(post), class: "ml-4" %></td>
+              <td class="col-1"><%= post.status == true ? 'Draft' : 'Publish' %></td>
+              <td class="col-2"><%= post.created_at.strftime("%Y-%m-%d") %></td>
+              <% if current_user == @user %>
+                <td class="col-2">
+                  <%= link_to 'edit', edit_post_path(post) %>
+                  <%= link_to 'delete', post_path(post), method: :delete, data:{ confirm: "Are you sure?" }%>    
+                </td>
+              <% end %>  
+            </tr>
           <% end %>  
-        </tr>
+        <% end %>
       <% end %>  
-    <% end %>  
+    <% end %>
   </tbody>
 </table>
 
