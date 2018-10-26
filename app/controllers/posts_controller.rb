@@ -20,9 +20,13 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
     @post.status = (params[:commit] == "Draft") ? true : false
-    if @post.save
+    if @post.save && !@post.status
       create_relation
       redirect_to post_path(@post), notice: "Post was successfully created"
+    elsif
+      @post.update(post_params) && @post.status == true
+      create_relation
+      redirect_to draft_user_path(current_user), notice: "Draft was successfully created"  
     else
       render :new, alert: "Post was dailed to create"
     end
@@ -30,9 +34,13 @@ class PostsController < ApplicationController
 
   def update
     @post.status = (params[:commit] == "Draft") ? true : false
-    if @post.update(post_params)
+    if @post.update(post_params) && !@post.status
       create_relation
       redirect_to post_path(@post), notice: "Post was successfully updated"
+    elsif
+      @post.update(post_params) && @post.status == true
+      create_relation
+      redirect_to draft_user_path(current_user), notice: "Draft was successfully updated"
     else
       render :edit, alert: "Post was failed to update"
     end
