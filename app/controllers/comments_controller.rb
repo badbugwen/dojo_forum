@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, except: [:udate, :destroy]
+  before_action :set_comment, only: [:update, :destroy]
 
   def create
+    @post = Post.find(params[:post_id])
     @comment = @post.comments.build(comment_params)
     @comment.user = current_user
     @comment.save!
